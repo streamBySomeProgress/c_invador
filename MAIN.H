@@ -11,20 +11,14 @@
 #define MYSHIP_BASE_POSX    38  
 #define MYSHIP_BASE_POSY    23  
 
+/*#include <windows.h>
+#include <stdio.h>
+#include <conio.h>
+#include <wincon.h>
+#include "Console.h"*/
 
 #include <stdio.h>
-//#include <conio.h>
-
-
-typedef struct{  
-	int x;
-	int y;
-} UPOINT;
-
-
-void InitConsole();
-void gotoXY(UPOINT pt);
-void ClearScreen();
+#include "Console.h"
 
 
 typedef struct{  

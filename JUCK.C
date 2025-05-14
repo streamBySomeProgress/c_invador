@@ -1,4 +1,4 @@
-#include "main.h"
+#include "Main.h" 
 
 char  enemyship_shape[5] = "^V^"; // 적기(적 비행기)
 

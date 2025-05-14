@@ -1,4 +1,4 @@
-#include "main.h"
+#include "Main.h"
 
 MYSHIP  myship;
 BULLET myship_bullet[MAXMY_BULLET];

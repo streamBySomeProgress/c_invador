@@ -4,33 +4,23 @@
 	단순 반복문 내에서 클럭 수를 저장하는 long 변수 값을 사용한 조건문을 차용함으로서 구현하는 중
 */
 
-
-
-
-#include <stdio.h>
-#include <ncurses.h>
-#include <time.h>
-#include "MAIN.H" 
+#include "Main.h" // 기타 라이브러리들은 Main 해더에 할당
 
 #define SPEED_CONTROL 50 // 1초당 1000클럭임에 유념하여 값 설정하기
 
-// 제한적인 전역변수 사용
-UPOINT ptCurrentMypos;
-
+UPOINT ptCurrentMypos; // 기존 ptthisMypos 대체
 int timeflag = FALSE;
 int score,hiscore =2000, killnum;
 
 //, 의존성 존재 가능성이 있으니 디버깅
 /*UPOINT ptthisMypos;
-UPOINT ptend = {36,12};
-
 int    timeflag = FALSE;
 int    score,hiscore =2000, killnum;
 char   *Aboom[8];
 int yes_or_no = 0 ;*/
 
 
-void main(void)
+int main(void)
 {
     UPOINT ptend = {MYSHIP_BASE_POSX,MYSHIP_BASE_POSY};
 
@@ -111,6 +101,8 @@ void main(void)
 		else
 			goto Dasi; // 유효한 값이 아닐 경우 재질의
 	}
+
+	return 0;
 }
 
 void play()
@@ -194,7 +186,7 @@ void play()
 		   }
 		   CheckenemyBullet(enemyship);
 		   DrawMyBullet();
-		   DrawMyship(&ptthisMypos , &ptMyoldpos);
+		   DrawMyship(&ptCurrentMypos , &ptMyoldpos);
 		   gotoXY(ptscore);
 
 		   if(killnum < 40)
@@ -230,43 +222,41 @@ void play()
 	}
 }
 
+// 코드 이해하기!!
+int kbhit(void) {
+    struct termios oldt, newt;
+    int ch;
+    int oldf;
 
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
+    fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
 
+    ch = getchar();
 
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    fcntl(STDIN_FILENO, F_SETFL, oldf);
 
-void ClearScreen()
-{
-	int i,j;
-	UPOINT pos;
-
-	for( i =1 ; i < 25 ; i++)
-	{
-		for( j = 1; j < 80 ; j++)
-		{
-			pos.x = j;
-			pos.y = i;
-			gotoXY(pos);
-			printf(" ");
-		}
-	}
+    if (ch != EOF) {
+        ungetc(ch, stdin);
+        return 1;
+    }
+    return 0;
 }
 
-// 화면 지움
-void InitConsole()
-{
-
-	clrscr();
-}
-
-void gotoXY(UPOINT pt)
-{
-	UPOINT pos;
-
-	pos.x = pt.x;
-	pos.y = pt.y;
-	gotoxy(pos.x,pos.y);
-
-
+int getch(void) {
+    struct termios oldt, newt;
+    int ch;
+    tcgetattr(STDIN_FILENO, &oldt);
+    newt = oldt;
+    newt.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+    ch = getchar();
+    tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+    return ch;
 }
 
 
