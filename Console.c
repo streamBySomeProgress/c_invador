@@ -1,6 +1,7 @@
 #include <stdio.h>
-#include "Console.h"
+#include "console.h"
 
+HANDLE hout;
 
 
 void ClearScreen()
@@ -22,10 +23,22 @@ void ClearScreen()
 
 void InitConsole()
 {
-	
+	CONSOLE_CURSOR_INFO coninfo;
+
+	coninfo.bVisible = FALSE;
+	coninfo.dwSize = 1;
+
+	hout = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	SetConsoleCursorInfo(hout, &coninfo);
 }
 
 void gotoxy(UPOINT pt)
 {
-	
+	COORD pos;
+
+	pos.X = pt.x;
+	pos.Y = pt.y;
+
+	SetConsoleCursorPosition(hout , pos);
 }

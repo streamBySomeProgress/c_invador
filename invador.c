@@ -1,0 +1,191 @@
+#include "main.h"
+
+UPOINT ptthisMypos;
+int    timeflag = FALSE;
+int    score,hiscore =2000, killnum;
+char   *Aboom[8];
+
+// 공격을 세번 당했을때 폭발
+// 연사속도 향상
+   
+void main(void)
+{	
+	UPOINT        ptend;
+	int	loop = 1;
+	
+	// 공통으로 처리
+	Aboom[0] = "i<^>i";
+	Aboom[1] = "i(*)i";
+	Aboom[2] = "(* *)";
+	Aboom[3] = "(** **)";
+	Aboom[4] = " (* *) ";
+	Aboom[5] = "  (*)  ";
+	Aboom[6] = "   *   ";
+	Aboom[7] = "       ";
+	ptend.x = 36;
+	ptend.y = 12;
+	while(loop)
+	{
+		DWORD         thisTickCount = GetTickCount();
+	    DWORD         bcount = thisTickCount;
+		int           bp =0;
+		int enemySpeed = 400; // 기본 보통
+		int firespeed = 200;
+		printf("난이도 선택--> e:쉬움, n:보통, h:어려움\n");
+
+		switch (_getch())
+		{
+			// '쉬움' 조건에서의 환경 세팅
+		    case 'e':
+				enemySpeed = 600;
+				firespeed = 150;
+			// '보통' 조건에서의 환경 세팅
+			case 'n':
+				;
+			// '어려움' 조건에서의 환경 세팅
+			case 'h':
+				enemySpeed = 200;
+				firespeed = 300;
+		}
+
+		// 동작
+		play(enemySpeed, firespeed);
+		
+		for(;;)  
+		{
+			if(timeflag == FALSE)
+			{
+				thisTickCount = GetTickCount();
+				
+				if( thisTickCount - bcount > 100)
+				{
+					gotoxy(ptthisMypos);
+					printf("%s",Aboom[bp]); // 적의 총알에 맞은 좌표(ptthisMypos)에서 printf 사용하여 폭발 애니메이션 활성화
+					bp++;
+					if(bp > 7)
+					   break;
+					bcount = thisTickCount;
+				}
+			}
+			else
+			 break;
+		}
+		
+		gotoxy(ptend);
+		printf("당신의 비행기는 파괴되었습니다.");
+		ptend.y +=1;
+		gotoxy(ptend);
+		printf("다시 할까요? (y/n)\n");
+
+		if(_getch() == 'y')
+		{
+			ClearScreen();  
+			bp=0;
+			killnum = 0;
+			timeflag = 0;
+			ptend.y  = 12;
+			loop = 1;      
+		}
+		else
+			loop = 0;       		
+	}
+}
+
+void  play(int juckspeed, int firespeed)
+{
+	static UPOINT ptMyoldpos;
+	DWORD         gthisTickCount = GetTickCount();
+    DWORD         gCount = gthisTickCount;
+	DWORD         Count = gthisTickCount;
+	DWORD         bulletcount = gthisTickCount;
+	UPOINT        ptscore,pthi;
+	//int           juckspeed=500;
+
+	InitConsole();    
+	InitMyship();    
+	Initenemyship();  
+	
+	ptthisMypos.x = ptMyoldpos.x = MYSHIP_BASE_POSX;
+    ptthisMypos.y = ptMyoldpos.y = MYSHIP_BASE_POSY;
+	
+	ptscore.x = 68;
+	ptscore.y = 1;
+
+	pthi.x =  2;
+	pthi.y =  1;
+	
+	
+	while(TRUE)
+	{
+	   gthisTickCount = GetTickCount(); // 기준시
+	
+	   if(_kbhit())  
+	   {
+		   switch(_getch())    
+		   {
+			   // 스페이스바로 발사
+		   case 32:
+			   if(gthisTickCount - bulletcount > firespeed) // 연사속도 조정
+			   {
+				   MyBulletshot(ptthisMypos);        
+				   bulletcount = gthisTickCount;
+			   }
+			   break;
+		   case 'j':
+			   ptMyoldpos.x = ptthisMypos.x;        
+			   if(--ptthisMypos.x < 1)ptthisMypos.x = 1;
+			   DrawMyship(&ptthisMypos , &ptMyoldpos);
+			   break;
+		   case 'l':
+			   ptMyoldpos.x = ptthisMypos.x;          
+			   if(++ptthisMypos.x > 75)ptthisMypos.x = 75 ;
+			   DrawMyship(&ptthisMypos , &ptMyoldpos);
+			   break;
+		   }
+	   }
+ 
+	   if( gthisTickCount - Count > 150)
+	   {
+	
+		   // 격추된 경우
+		   if(CheckMybullet(ptthisMypos) == 0)            
+		   {
+			   if(score > 2000)
+				   hiscore = score;
+			   break; // play 이하 구문을 진행하고자 반복문 탈출
+		   }
+
+	       CheckenemyBullet(enemyship);                  
+		   DrawMyBullet();                                
+		   DrawMyship(&ptthisMypos , &ptMyoldpos);        
+		   gotoxy(ptscore);
+		  
+		   if(killnum < 40)
+		      printf("점수 : %d",score);
+		   else
+		   {
+			   timeflag = TRUE;
+			   break;
+		   }
+
+		   if(killnum > 20)                              
+			   juckspeed = 150;                          
+		  
+		   gotoxy(pthi);
+		  
+	   	   Count = gthisTickCount;
+	   }
+	  
+	   if( gthisTickCount - gCount > juckspeed)
+	   {
+		   Bulletshot();                                  
+	       DrawBullet();                                  
+	  	   CalenemyshipPos();                            
+		   Drawenemyship();                              
+		   if(Checkenemypos() == 1)
+			   break;                
+		   gCount = gthisTickCount;                      
+	   }
+	}
+
+}

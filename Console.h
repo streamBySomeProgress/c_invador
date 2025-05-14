@@ -1,5 +1,5 @@
-//#include <windows.h>
-//#include <wincon.h>
+#include <windows.h>
+#include <wincon.h>
 
 typedef struct{  
 	int x;

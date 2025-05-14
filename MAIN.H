@@ -1,37 +1,35 @@
 #define MAX_ENEMY           40  
-#define MAXENEMY_BASE_ROW    4   
+#define MAXENEMY_BASE_ROW    4  
 #define MAXENEMY_BASE_COL   10  
 #define MAXENEMY_BULLET     10  
-#define ENEMYSHIP_BASE_POSX 20   
+#define ENEMYSHIP_BASE_POSX 20  
 #define ENEMYSHIP_BASE_POSY  2  
 #define TRUE                 1
 #define FALSE                0
 
-#define MAXMY_BULLET         3   
+#define MAXMY_BULLET        3 // 총알 개수
 #define MYSHIP_BASE_POSX    38  
 #define MYSHIP_BASE_POSY    23  
 
-/*#include <windows.h>
+#include <windows.h>
 #include <stdio.h>
 #include <conio.h>
 #include <wincon.h>
-#include "Console.h"*/
 
-#include <stdio.h>
-#include "Console.h"
-
+#include "console.h"
+#include "animation.h"
 
 typedef struct{  
 	int flag;
 	UPOINT pos;  
 } MYSHIP;
 
-typedef struct{ 
+typedef struct{
 	int flag;
 	UPOINT pos;
 } BULLET;
 
-typedef struct{ 
+typedef struct{
 	int flag;
 	UPOINT pos;
 } ENEMYSHIP;
@@ -60,4 +58,3 @@ void CheckenemyBullet(ENEMYSHIP*);
 
 void boom(UPOINT pt,int );
 void play();
-

@@ -1,4 +1,4 @@
-#include "Main.h"
+#include "main.h"
 
 MYSHIP  myship;
 BULLET myship_bullet[MAXMY_BULLET];
@@ -15,9 +15,9 @@ void InitMyship()
 
 void DrawMyship(UPOINT *pt,UPOINT *oldpt)
 {
-	gotoXY(*oldpt);
+	gotoxy(*oldpt);
     printf("     ");
-	gotoXY(*pt);
+	gotoxy(*pt);
 	printf("%s",myship_shape);
 }
 
@@ -36,7 +36,7 @@ void DrawMyBullet()
 				myship_bullet[i].flag = FALSE;
 				oldpos.x = myship_bullet[i].pos.x;
 		        oldpos.y = myship_bullet[i].pos.y;
-				gotoXY(oldpos);
+				gotoxy(oldpos);
 		        printf(" ");
 				break;
 			}
@@ -46,9 +46,9 @@ void DrawMyBullet()
 		   --myship_bullet[i].pos.y;
 		   ptpos.x = myship_bullet[i].pos.x;
 		   ptpos.y = myship_bullet[i].pos.y;
-		   gotoXY(oldpos);
+		   gotoxy(oldpos);
 		   printf(" ");
-		   gotoXY(ptpos);
+		   gotoxy(ptpos);
 		   printf("!");
 		}
 	}
@@ -57,7 +57,7 @@ void DrawMyBullet()
 void MyBulletshot(UPOINT ptthisMypos)
 {
 	int i;
-    
+   
 	for( i = 0; i < MAXMY_BULLET ; i++)
 	{
 		if(myship_bullet[i].flag == FALSE)
@@ -79,12 +79,13 @@ int CheckMybullet(UPOINT ptthisMypos)
 	for( i = 0; i < MAXENEMY_BULLET ; i++)
 	{
 		if(enemy_bullet[i].flag == TRUE)
-		{ 
-			if( ptthisMypos.x <= enemy_bullet[i].pos.x && 
-				(enemy_bullet[i].pos.x <= ptthisMypos.x + 4) && 
+		{
+			// 내 비행기가 격추당할 경우
+			if( ptthisMypos.x <= enemy_bullet[i].pos.x &&
+				(enemy_bullet[i].pos.x <= ptthisMypos.x + 4) &&
 			    enemy_bullet[i].pos.y == ptthisMypos.y )
 			{
-				flag = TRUE;
+				flag = TRUE; // 격추
 				break;
 			}
 		}
@@ -95,6 +96,3 @@ int CheckMybullet(UPOINT ptthisMypos)
 	else
 		return 1;
 }
-
-	
-

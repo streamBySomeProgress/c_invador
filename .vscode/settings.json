@@ -2,6 +2,8 @@
     "files.associations": {
         "INVADER.C": "cpp",
         "MYCHAR.C": "cpp",
-        "JUCK.C": "cpp"
+        "JUCK.C": "cpp",
+        "console.h": "c",
+        "animation.h": "c"
     }
 }
