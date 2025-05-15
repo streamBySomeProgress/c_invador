@@ -5,8 +5,8 @@ int    timeflag = FALSE;
 int    score,hiscore =2000, killnum;
 char   *Aboom[8];
 
-// 공격을 세번 당했을때 폭발
-// 연사속도 향상
+// 난이도 조절 기능
+// 폭발 애니메이션을 별도로 작성하여 적기 격추 애니메이션에도 적용 가능하도록 함
    
 void main(void)
 {	

@@ -4,6 +4,7 @@
         "MYCHAR.C": "cpp",
         "JUCK.C": "cpp",
         "console.h": "c",
-        "animation.h": "c"
+        "animation.h": "c",
+        "stdio.h": "c"
     }
 }
