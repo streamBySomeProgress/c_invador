@@ -3,15 +3,24 @@
 
 HANDLE hout;
 
+void moveCursor(int x, int y) {
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        fprintf(stderr, "SDL initialization failed: %s\n", SDL_GetError());
+        return;
+    }
+
+    SDL_WarpMouseGlobal(x, y);
+    SDL_Quit();
+}
 
 void ClearScreen()
 {
 	int i,j;
 	UPOINT pos;
 
-	for( i =1 ; i < 25 ; i++)
+	for(i = 1 ; i < 25 ; i++)
 	{
-		for( j = 1; j < 80 ; j++)
+		for(j = 1; j < 80 ; j++)
 		{
 			pos.x = j;
 			pos.y = i;
@@ -23,22 +32,11 @@ void ClearScreen()
 
 void InitConsole()
 {
-	CONSOLE_CURSOR_INFO coninfo;
-
-	coninfo.bVisible = FALSE;
-	coninfo.dwSize = 1;
-
-	hout = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	SetConsoleCursorInfo(hout, &coninfo);
+	int i;
 }
 
 void gotoxy(UPOINT pt)
 {
-	COORD pos;
 
-	pos.X = pt.x;
-	pos.Y = pt.y;
-
-	SetConsoleCursorPosition(hout , pos);
+	moveCursor(pt.x, pt.y);
 }

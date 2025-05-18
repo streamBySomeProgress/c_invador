@@ -11,13 +11,8 @@
 #define MYSHIP_BASE_POSX    38  
 #define MYSHIP_BASE_POSY    23  
 
-#include <windows.h>
 #include <stdio.h>
-#include <conio.h>
-#include <wincon.h>
-
 #include "console.h"
-#include "animation.h"
 
 typedef struct{  
 	int flag;
