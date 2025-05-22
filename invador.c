@@ -7,8 +7,8 @@ char   *Aboom[8];
 
 // 난이도 조절 기능
 // 폭발 애니메이션을 별도로 작성하여 적기 격추 애니메이션에도 적용 가능하도록 함
-   
-void main(void)
+
+int main(void)
 {	
 	UPOINT        ptend;
 	int	loop = 1;
@@ -26,14 +26,14 @@ void main(void)
 	ptend.y = 12;
 	while(loop)
 	{
-		DWORD         thisTickCount = GetTickCount();
-	    DWORD         bcount = thisTickCount;
+		clock_t       updatedClockCnt = clock();
+	    clock_t       prevClockCnt = updatedClockCnt;
 		int           bp =0;
 		int enemySpeed = 400; // 기본 보통
 		int firespeed = 200;
 		printf("난이도 선택--> e:쉬움, n:보통, h:어려움\n");
 
-		switch (_getch())
+		switch (getch())
 		{
 			// '쉬움' 조건에서의 환경 세팅
 		    case 'e':
@@ -55,16 +55,16 @@ void main(void)
 		{
 			if(timeflag == FALSE)
 			{
-				thisTickCount = GetTickCount();
+				updatedClockCnt = clock();
 				
-				if( thisTickCount - bcount > 100)
+				if( updatedClockCnt - prevClockCnt > 1000)
 				{
 					gotoxy(ptthisMypos);
 					printf("%s",Aboom[bp]); // 적의 총알에 맞은 좌표(ptthisMypos)에서 printf 사용하여 폭발 애니메이션 활성화
 					bp++;
 					if(bp > 7)
 					   break;
-					bcount = thisTickCount;
+					prevClockCnt = updatedClockCnt;
 				}
 			}
 			else
@@ -77,7 +77,7 @@ void main(void)
 		gotoxy(ptend);
 		printf("다시 할까요? (y/n)\n");
 
-		if(_getch() == 'y')
+		if(getch() == 'y')
 		{
 			ClearScreen();  
 			bp=0;
@@ -89,15 +89,17 @@ void main(void)
 		else
 			loop = 0;       		
 	}
+
+	return 0;
 }
 
-void  play(int juckspeed, int firespeed)
+void play(int juckspeed, int firespeed)
 {
 	static UPOINT ptMyoldpos;
-	DWORD         gthisTickCount = GetTickCount();
-    DWORD         gCount = gthisTickCount;
-	DWORD         Count = gthisTickCount;
-	DWORD         bulletcount = gthisTickCount;
+	clock_t       gthisClockCount = clock();
+    clock_t       gCount = gthisClockCount;
+	clock_t       Count = gthisClockCount;
+	clock_t       bulletcount = gthisClockCount;
 	UPOINT        ptscore,pthi;
 	//int           juckspeed=500;
 
@@ -117,18 +119,18 @@ void  play(int juckspeed, int firespeed)
 	
 	while(TRUE)
 	{
-	   gthisTickCount = GetTickCount(); // 기준시
+	   gthisClockCount = clock(); // 기준시
 	
-	   if(_kbhit())  
+	   if(kbhit())  
 	   {
-		   switch(_getch())    
+		   switch(getch())    
 		   {
 			   // 스페이스바로 발사
 		   case 32:
-			   if(gthisTickCount - bulletcount > firespeed) // 연사속도 조정
+			   if(gthisClockCount - bulletcount > firespeed) // 연사속도 조정
 			   {
 				   MyBulletshot(ptthisMypos);        
-				   bulletcount = gthisTickCount;
+				   bulletcount = gthisClockCount;
 			   }
 			   break;
 		   case 'j':
@@ -144,7 +146,7 @@ void  play(int juckspeed, int firespeed)
 		   }
 	   }
  
-	   if( gthisTickCount - Count > 150)
+	   if(gthisClockCount - Count > 150)
 	   {
 	
 		   // 격추된 경우
@@ -173,10 +175,10 @@ void  play(int juckspeed, int firespeed)
 		  
 		   gotoxy(pthi);
 		  
-	   	   Count = gthisTickCount;
+	   	   Count = gthisClockCount;
 	   }
 	  
-	   if( gthisTickCount - gCount > juckspeed)
+	   if(gthisClockCount - gCount > juckspeed)
 	   {
 		   Bulletshot();                                  
 	       DrawBullet();                                  
@@ -184,7 +186,7 @@ void  play(int juckspeed, int firespeed)
 		   Drawenemyship();                              
 		   if(Checkenemypos() == 1)
 			   break;                
-		   gCount = gthisTickCount;                      
+		   gCount = gthisClockCount;                      
 	   }
 	}
 

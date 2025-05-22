@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "console.h"
 
-HANDLE hout;
+//HANDLE hout;
 
 void moveCursor(int x, int y) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {

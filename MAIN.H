@@ -12,7 +12,9 @@
 #define MYSHIP_BASE_POSY    23  
 
 #include <stdio.h>
+#include <time.h>
 #include "console.h"
+#include "keyInput.h"
 
 typedef struct{  
 	int flag;
@@ -52,4 +54,4 @@ void InitBullet();
 void CheckenemyBullet(ENEMYSHIP*);
 
 void boom(UPOINT pt,int );
-void play();
+void play(int juckspeed, int firespeed);
