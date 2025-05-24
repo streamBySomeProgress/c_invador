@@ -1,4 +1,4 @@
-#include "main.h"
+#include "MAIN.H"
 
 char  enemyship_shape[5] = "^V^";
 

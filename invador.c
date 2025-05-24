@@ -1,4 +1,4 @@
-#include "main.h"
+#include "MAIN.H"
 
 UPOINT ptthisMypos;
 int    timeflag = FALSE;

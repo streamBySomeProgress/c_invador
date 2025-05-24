@@ -14,7 +14,7 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "console.h"
+#include "Console.h"
 #include "keyInput.h"
 
 typedef struct{  
