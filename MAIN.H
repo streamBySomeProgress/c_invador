@@ -13,6 +13,7 @@
 #define TIME_UNIT 1000000 // 클럭을 사용함에 따라 일정 단위의 시간을 정의하기 위하여 사용하는 메크로
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 #include "Console.h"
 #include "keyInput.h"
