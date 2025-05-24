@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <termios.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "console.h"
+#include "keyInput.h"
 
 // 커스텀 kbhit 구현
 int kbhit(void) {

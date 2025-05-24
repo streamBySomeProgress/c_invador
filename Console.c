@@ -1,21 +1,12 @@
 #include <stdio.h>
 #include "console.h"
+#include <curses.h>
 
 //HANDLE hout;
 
-// void moveCursor(int x, int y) {
-//     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-//         fprintf(stderr, "SDL initialization failed: %s\n", SDL_GetError());
-//         return;
-//     }
-
-//     SDL_WarpMouseGlobal(x, y);
-//     SDL_Quit();
-// }
-
-void setCursorPosition(int row, int col) {
+void SetConsoleCursorPosition(int row, int col) {
     // ANSI escape code: \033[<row>;<col>H
-    printf("\033[%d;%dH", row, col);
+    printf("\033[%d;%dH", row, col); // 탈출 구문을 사용하여 일반적인 문자열 출력이 아닌 다른 동작을 수행하도록 함
     fflush(stdout); // Ensure the cursor moves immediately --> 표준 출력 stream(stdout) 과 연관된 버퍼를 비움(출력 처리)
 }
 
@@ -38,19 +29,19 @@ void ClearScreen()
 
 void InitConsole()
 {
-	// todo macos 에서 구동 가능하도록 수정할 것
-	CONSOLE_CURSOR_INFO coninfo;
+	// // todo macos 에서 구동 가능하도록 수정할 것
+	// CONSOLE_CURSOR_INFO coninfo;
 
-	coninfo.bVisible = FALSE;
-	coninfo.dwSize = 1;
+	// coninfo.bVisible = FALSE; // 커서가 보이지 않도록 함
+	// coninfo.dwSize = 1; // 커서가 좌측 끝단에 위치하도록 함(100일시 전체차지)
 
-	hout = GetStdHandle(STD_OUTPUT_HANDLE);
+	// hout = GetStdHandle(STD_OUTPUT_HANDLE); // 기본 설정인듯 하다
 
-	SetConsoleCursorInfo(hout, &coninfo);
+	// SetConsoleCursorInfo(hout, &coninfo);
 }
 
+// 본 함수 이하에 커서를 이동시킬 시 작동시키고자 하는 동작을 추가로 작성할수 있다 
 void gotoxy(UPOINT pt)
 {
-
-	setCursorPosition(pt.x, pt.y);
+	SetConsoleCursorPosition(pt.x, pt.y);
 }
