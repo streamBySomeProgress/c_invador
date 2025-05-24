@@ -29,23 +29,23 @@ int main(void)
 		clock_t       updatedClockCnt = clock();
 	    clock_t       prevClockCnt = updatedClockCnt;
 		int           bp =0;
-		int enemySpeed = 400; // 기본 보통
-		int firespeed = 200;
+		int enemySpeed = 40 * TIME_UNIT; // 기본 보통
+		int firespeed = 20 * TIME_UNIT;
 		printf("난이도 선택--> e:쉬움, n:보통, h:어려움\n");
 
 		switch (getch())
 		{
 			// '쉬움' 조건에서의 환경 세팅
 		    case 'e':
-				enemySpeed = 600;
-				firespeed = 150;
+				enemySpeed = 6 * TIME_UNIT;
+				firespeed = 15 * TIME_UNIT;
 			// '보통' 조건에서의 환경 세팅
 			case 'n':
 				;
 			// '어려움' 조건에서의 환경 세팅
 			case 'h':
-				enemySpeed = 200;
-				firespeed = 300;
+				enemySpeed = 20 * TIME_UNIT;
+				firespeed = 30 * TIME_UNIT;
 		}
 
 		// 동작
@@ -57,7 +57,7 @@ int main(void)
 			{
 				updatedClockCnt = clock();
 				
-				if( updatedClockCnt - prevClockCnt > 1000)
+				if( updatedClockCnt - prevClockCnt > 30 *TIME_UNIT)
 				{
 					gotoxy(ptthisMypos);
 					printf("%s",Aboom[bp]); // 적의 총알에 맞은 좌표(ptthisMypos)에서 printf 사용하여 폭발 애니메이션 활성화
@@ -146,7 +146,7 @@ void play(int juckspeed, int firespeed)
 		   }
 	   }
  
-	   if(gthisClockCount - Count > 150)
+	   if(gthisClockCount - Count > 15 * TIME_UNIT)
 	   {
 	
 		   // 격추된 경우

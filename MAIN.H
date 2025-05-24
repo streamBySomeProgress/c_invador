@@ -10,6 +10,7 @@
 #define MAXMY_BULLET        3 // 총알 개수
 #define MYSHIP_BASE_POSX    38  
 #define MYSHIP_BASE_POSY    23  
+#define TIME_UNIT 10000
 
 #include <stdio.h>
 #include <time.h>
