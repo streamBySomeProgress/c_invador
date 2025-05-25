@@ -146,7 +146,6 @@ void play(int juckspeed, int firespeed)
  
 	   if(gthisClockCount - Count > 15 * TIME_UNIT)
 	   {
-	
 		   // 격추된 경우
 		   if(CheckMybullet(ptthisMypos) == 0)            
 		   {

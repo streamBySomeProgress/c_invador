@@ -4,13 +4,6 @@
 
 //HANDLE hout;
 
-void SetCursorPosition(int row, int col) {
-    // ANSI escape code: \033[<row>;<col>H
-    printf("\033[%d;%dH", row, col); // 탈출 구문을 사용하여 일반적인 문자열 출력이 아닌 다른 동작을 수행하도록 함
-    //fflush(stdout); // Ensure the cursor moves immediately --> 표준 출력 stream(stdout) 과 연관된 버퍼를 비움(출력 처리)
-}
-
-// 본 동작 점검
 void ClearScreen()
 {
 	int i,j;
@@ -40,15 +33,17 @@ void InitConsole()
 	// hout = GetStdHandle(STD_OUTPUT_HANDLE); // 기본 설정인듯 하다
 
 	// SetConsoleCursorInfo(hout, &coninfo);
-	ClearScreen();
+	printf("\033[2J"); // 터미널 영역에 텍스트 전부 지움
 	printf("\033[?25l"); // 커서 감춤
 	printf("\033[%d;%dH", 1, 1); // 커서를 좌측 끝단으로 이동
 	fflush(stdout);
-	printf("write");
 }
 
 // 본 함수 이하에 커서를 이동시킬 시 작동시키고자 하는 동작을 추가로 작성할수 있다 
 void gotoxy(UPOINT pt)
 {
-	SetCursorPosition(pt.x, pt.y);
+	// ANSI escape code: \033[<row>;<col>H
+    printf("\033[%d;%dH", pt.x, pt.y); // row, column --> 순서대로 y, x 값을 대입하여야
+	printf("%d, %d", pt.x, pt.y);
+	fflush(stdout);
 }

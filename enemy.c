@@ -76,7 +76,7 @@ void Drawenemyship()
 	UPOINT pos,posOld;
 	int i;
 	
-	for( i=0 ; i < MAX_ENEMY ; i++)
+	for(i=0 ; i < MAX_ENEMY ; i++)
 	{
 		// 적기가 살아있는 경우
 		if(enemyship[i].flag == TRUE)
