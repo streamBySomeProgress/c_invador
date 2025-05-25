@@ -81,7 +81,7 @@ int CheckMybullet(UPOINT ptthisMypos)
 		if(enemy_bullet[i].flag == TRUE)
 		{
 			// 내 비행기가 격추당할 경우
-			if( ptthisMypos.x <= enemy_bullet[i].pos.x &&
+			if(ptthisMypos.x <= enemy_bullet[i].pos.x &&
 				(enemy_bullet[i].pos.x <= ptthisMypos.x + 4) &&
 			    enemy_bullet[i].pos.y == ptthisMypos.y )
 			{

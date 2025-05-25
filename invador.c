@@ -13,7 +13,6 @@ int main(void)
 	UPOINT        ptend;
 	int	loop = 1;
 	
-	// 공통으로 처리
 	Aboom[0] = "i<^>i";
 	Aboom[1] = "i(*)i";
 	Aboom[2] = "(* *)";
@@ -32,7 +31,7 @@ int main(void)
 		int enemySpeed = 40 * TIME_UNIT; // 기본 보통
 		int firespeed = 20 * TIME_UNIT;
 		printf("난이도 선택--> e:쉬움, n:보통, h:어려움\n");
-
+		
 		switch (getch())
 		{
 			// '쉬움' 조건에서의 환경 세팅
@@ -57,7 +56,7 @@ int main(void)
 			{
 				updatedClockCnt = clock();
 				
-				if( updatedClockCnt - prevClockCnt > 30 *TIME_UNIT)
+				if(updatedClockCnt - prevClockCnt > 30 *TIME_UNIT)
 				{
 					gotoxy(ptthisMypos);
 					printf("%s",Aboom[bp]); // 적의 총알에 맞은 좌표(ptthisMypos)에서 printf 사용하여 폭발 애니메이션 활성화
@@ -102,7 +101,6 @@ void play(int juckspeed, int firespeed)
 	clock_t       bulletcount = gthisClockCount;
 	UPOINT        ptscore,pthi;
 	//int           juckspeed=500;
-
 	InitConsole();    
 	InitMyship();    
 	Initenemyship();  
