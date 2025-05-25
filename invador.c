@@ -36,7 +36,7 @@ int main(void)
 		{
 			// '쉬움' 조건에서의 환경 세팅
 		    case 'e':
-				enemySpeed = 6 * TIME_UNIT;
+				enemySpeed = 60 * TIME_UNIT;
 				firespeed = 15 * TIME_UNIT;
 			// '보통' 조건에서의 환경 세팅
 			case 'n':
@@ -88,7 +88,6 @@ int main(void)
 		else
 			loop = 0;       		
 	}
-
 	return 0;
 }
 
@@ -168,7 +167,7 @@ void play(int juckspeed, int firespeed)
 		   }
 
 		   if(killnum > 20)                              
-			   juckspeed = 150;                          
+			   juckspeed = 15 * TIME_UNIT;;                          
 		  
 		   gotoxy(pthi);
 		  
