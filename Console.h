@@ -1,6 +1,6 @@
 typedef struct{  
-	int x;
-	int y;
+	int x; // column
+	int y; // row
 } UPOINT;
 
 

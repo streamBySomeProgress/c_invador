@@ -43,7 +43,6 @@ void InitConsole()
 void gotoxy(UPOINT pt)
 {
 	// ANSI escape code: \033[<row>;<col>H
-    printf("\033[%d;%dH", pt.x, pt.y); // row, column --> 순서대로 y, x 값을 대입하여야
-	printf("%d, %d", pt.x, pt.y);
+    printf("\033[%d;%dH", pt.y, pt.x); // row, column
 	fflush(stdout);
 }
