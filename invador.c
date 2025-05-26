@@ -23,6 +23,8 @@ int main(void)
 	Aboom[7] = "       ";
 	ptend.x = 36;
 	ptend.y = 12;
+
+	init_console();
 	while(loop)
 	{
 		clock_t       updatedClockCnt = clock();
@@ -31,22 +33,31 @@ int main(void)
 		int enemySpeed = 40 * TIME_UNIT; // 기본 보통
 		int firespeed = 20 * TIME_UNIT;
 		printf("난이도 선택--> e:쉬움, n:보통, h:어려움\n");
+		// while(TRUE)
+	    // {
+	    //     if(kbhit()) 
+		// 	{
+		// 		switch (getch())
+		//         {
+		// 	        // '쉬움' 조건에서의 환경 세팅
+		//             case 'e':
+		// 		    enemySpeed = 60 * TIME_UNIT;
+		// 		    firespeed = 15 * TIME_UNIT;
+		// 			break;
+		// 	        // '보통' 조건에서의 환경 세팅
+		// 	        case 'n':
+		// 		        break;
+		// 	        // '어려움' 조건에서의 환경 세팅
+		// 	        case 'h':
+		// 		        enemySpeed = 20 * TIME_UNIT;
+		// 		        firespeed = 30 * TIME_UNIT;
+		// 				break;
+		// 			default:
+		// 			    continue;
+		//         }
+		// 	}
+		// }
 		
-		switch (getch())
-		{
-			// '쉬움' 조건에서의 환경 세팅
-		    case 'e':
-				enemySpeed = 60 * TIME_UNIT;
-				firespeed = 15 * TIME_UNIT;
-			// '보통' 조건에서의 환경 세팅
-			case 'n':
-				;
-			// '어려움' 조건에서의 환경 세팅
-			case 'h':
-				enemySpeed = 20 * TIME_UNIT;
-				firespeed = 30 * TIME_UNIT;
-		}
-
 		// 동작
 		play(enemySpeed, firespeed);
 		
@@ -88,6 +99,7 @@ int main(void)
 		else
 			loop = 0;       		
 	}
+	cleanup_console();
 	return 0;
 }
 
@@ -122,8 +134,8 @@ void play(int juckspeed, int firespeed)
 	   {
 		   switch(getch())    
 		   {
-			   // 스페이스바로 발사
 		   case 32:
+		       // 스페이스바로 발사
 			   if(gthisClockCount - bulletcount > firespeed) // 연사속도 조정
 			   {
 				   MyBulletshot(ptthisMypos);        
