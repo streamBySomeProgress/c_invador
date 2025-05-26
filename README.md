@@ -2,7 +2,7 @@
 c 언어를 이용한 전투기 공중전
 
 # 컴파일 명렁어
-gcc invador.c console.c enemy.c mychar.c -o main -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2
+gcc invador.c console.c enemy.c mychar.c keyInput.c -o main -I/opt/homebrew/include -L/opt/homebrew/lib -lSDL2 
 --> -I 이하 헤더파일, -L 이하 라이브러리 파일 경로
 
 ## 유의사항
